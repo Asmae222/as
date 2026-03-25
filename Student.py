@@ -35,6 +35,18 @@ class SchoolClass:
         for student in ranked:
             print(f'{student.name} : {student.notes[0]} (moyenne: {student.moyenne():.2f})')
 
+    def rank_matter_2(self):
+        print(f'\n--- Classement décroissant par Matiere 2 ---')
+        ranked = sorted(self.students, key=lambda s: s.notes[1], reverse=True)
+        for student in ranked:
+            print(f'{student.name} : {student.notes[1]} (moyenne: {student.moyenne():.2f})')
+
+    def rank_matter_3(self):
+        print(f'\n--- Classement décroissant par Matiere 3 ---')
+        ranked = sorted(self.students, key=lambda s: s.notes[2], reverse=True)
+        for student in ranked:
+            print(f'{student.name} : {student.notes[2]} (moyenne: {student.moyenne():.2f})')
+
 
 if __name__ == '__main__':
     school_class = SchoolClass()
@@ -47,3 +59,5 @@ if __name__ == '__main__':
     school_class.display_ranking('Matiere 3', 2)
 
     school_class.rank_matter_1()
+    school_class.rank_matter_2()
+    school_class.rank_matter_3()
