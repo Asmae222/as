@@ -1,3 +1,6 @@
+from collections.abc import Iterable, Iterator
+
+
 class Student:
     def __init__(self, name: str, note1: float, note2: float, note3: float):
         self.name = name
@@ -10,12 +13,29 @@ class Student:
         return f'Student(name={self.name}, moyenne={self.moyenne():.2f})'
 
 
-class SchoolClass:
+class StudentIterator(Iterator):
+
+    def __init__(self, students: list, index: int = 0):
+        self.__students = sorted(students, key=lambda s: s.notes[index], reverse=True)
+        self.__index = 0
+
+    def __next__(self):
+        if self.__index >= len(self.__students):
+            raise StopIteration
+        student = self.__students[self.__index]
+        self.__index += 1
+        return student
+
+
+class SchoolClass(Iterable):
     def __init__(self):
         self.students = []
 
     def add_student(self, student: Student):
         self.students.append(student)
+
+    def __iter__(self):
+        return StudentIterator(self.students, index=0)
 
     def rank_by_matiere(self, index: int):
         return sorted(
@@ -61,3 +81,7 @@ if __name__ == '__main__':
     school_class.rank_matter_1()
     school_class.rank_matter_2()
     school_class.rank_matter_3()
+
+    print('\n--- Iteration sur Matiere 1 ---')
+    for student in school_class:
+        print(f'{student.name} : {student.notes[0]} (moyenne: {student.moyenne():.2f})')
