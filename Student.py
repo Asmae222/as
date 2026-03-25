@@ -27,6 +27,34 @@ class StudentIterator(Iterator):
         return student
 
 
+class StudentIteratorMatter2(Iterator):
+
+    def __init__(self, students: list):
+        self.__students = sorted(students, key=lambda s: s.notes[1], reverse=True)
+        self.__index = 0
+
+    def __next__(self):
+        if self.__index >= len(self.__students):
+            raise StopIteration
+        student = self.__students[self.__index]
+        self.__index += 1
+        return student
+
+
+class StudentIteratorMatter3(Iterator):
+
+    def __init__(self, students: list):
+        self.__students = sorted(students, key=lambda s: s.notes[2], reverse=True)
+        self.__index = 0
+
+    def __next__(self):
+        if self.__index >= len(self.__students):
+            raise StopIteration
+        student = self.__students[self.__index]
+        self.__index += 1
+        return student
+
+
 class SchoolClass(Iterable):
     def __init__(self):
         self.students = []
@@ -36,6 +64,12 @@ class SchoolClass(Iterable):
 
     def __iter__(self):
         return StudentIterator(self.students, index=0)
+
+    def iter_matter_2(self):
+        return StudentIteratorMatter2(self.students)
+
+    def iter_matter_3(self):
+        return StudentIteratorMatter3(self.students)
 
     def rank_by_matiere(self, index: int):
         return sorted(
@@ -85,3 +119,11 @@ if __name__ == '__main__':
     print('\n--- Iteration sur Matiere 1 ---')
     for student in school_class:
         print(f'{student.name} : {student.notes[0]} (moyenne: {student.moyenne():.2f})')
+
+    print('\n--- Iteration sur Matiere 2 ---')
+    for student in school_class.iter_matter_2():
+        print(f'{student.name} : {student.notes[1]} (moyenne: {student.moyenne():.2f})')
+
+    print('\n--- Iteration sur Matiere 3 ---')
+    for student in school_class.iter_matter_3():
+        print(f'{student.name} : {student.notes[2]} (moyenne: {student.moyenne():.2f})')
