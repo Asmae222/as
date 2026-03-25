@@ -28,3 +28,14 @@ class SchoolClass:
         print(f'\n--- Classement par {matiere} ---')
         for student in self.rank_by_matiere(index):
             print(f'{student.name} : {student.notes[index]} (moyenne: {student.moyenne():.2f})')
+
+
+if __name__ == '__main__':
+    school_class = SchoolClass()
+    school_class.add_student(Student('J', 10, 12, 13))
+    school_class.add_student(Student('A', 8, 2, 17))
+    school_class.add_student(Student('V', 9, 14, 14))
+
+    school_class.display_ranking('Matiere 1', 0)
+    school_class.display_ranking('Matiere 2', 1)
+    school_class.display_ranking('Matiere 3', 2)
