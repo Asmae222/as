@@ -12,6 +12,13 @@ def add_matter_4(cls):
     return cls
 
 
+def add_iter_matter_4(cls):
+    def iter_matter_4(self):
+        return StudentIteratorMatter4(self.students)
+    cls.iter_matter_4 = iter_matter_4
+    return cls
+
+
 class StudentIterator(Iterator):
 
     def __init__(self, students: list, index: int = 0):
@@ -81,6 +88,7 @@ class Student:
         return f'Student(name={self.name}, moyenne={self.moyenne():.2f})'
 
 
+@add_iter_matter_4
 class SchoolClass(Iterable):
     def __init__(self):
         self.students = []
@@ -96,9 +104,6 @@ class SchoolClass(Iterable):
 
     def iter_matter_3(self):
         return StudentIteratorMatter3(self.students)
-
-    def iter_matter_4(self):
-        return StudentIteratorMatter4(self.students)
 
     def rank_by_matiere(self, index: int):
         return sorted(
