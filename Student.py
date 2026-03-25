@@ -29,6 +29,12 @@ class SchoolClass:
         for student in self.rank_by_matiere(index):
             print(f'{student.name} : {student.notes[index]} (moyenne: {student.moyenne():.2f})')
 
+    def rank_matter_1(self):
+        print(f'\n--- Classement décroissant par Matiere 1 ---')
+        ranked = sorted(self.students, key=lambda s: s.notes[0], reverse=True)
+        for student in ranked:
+            print(f'{student.name} : {student.notes[0]} (moyenne: {student.moyenne():.2f})')
+
 
 if __name__ == '__main__':
     school_class = SchoolClass()
@@ -39,3 +45,5 @@ if __name__ == '__main__':
     school_class.display_ranking('Matiere 1', 0)
     school_class.display_ranking('Matiere 2', 1)
     school_class.display_ranking('Matiere 3', 2)
+
+    school_class.rank_matter_1()
